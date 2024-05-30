@@ -13,21 +13,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+
 // Definición de la tabla Cliente
 model Cliente {
-  id            Int      @id @default(autoincrement())
-  nombre        String
+  id             Int      @id @default(autoincrement())
+  nombre         String
   identificacion String
-  gastos        Gasto[]
-  estado        Estado   @default(Activo)
+  sucursal       Sucursal
+  gastos         Gasto[]
+  
 }
 
 // Definición de la tabla Concepto
 model Concepto {
-  id          Int    @id @default(autoincrement())
-  descripcion String
-  gastos      Gasto[]
-  estado      Estado @default(Activo)
+  id           Int    @id @default(autoincrement())
+  descripcion  String
+  sucursal     Sucursal
+  gastos       Gasto[]
+ 
 }
 
 // Definición de la tabla Gasto
@@ -37,13 +41,16 @@ model Gasto {
   clienteId    Int
   concepto     Concepto @relation(fields: [conceptoId], references: [id])
   conceptoId   Int
+  sucursal     Sucursal
   fecha        String
   hora         String
   valorGasto   Float
-  estado       Estado   @default(Activo)
 }
 
-enum Estado {
-  Activo
-  Inactivo
+enum Sucursal{
+  CHONE
+  MANTA
+  PORTO
+  CLOSED
 }
+

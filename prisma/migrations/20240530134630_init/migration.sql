@@ -1,12 +1,12 @@
 -- CreateEnum
-CREATE TYPE "Estado" AS ENUM ('Activo', 'Inactivo');
+CREATE TYPE "Sucursal" AS ENUM ('CHONE', 'MANTA', 'PORTO', 'CLOSED');
 
 -- CreateTable
 CREATE TABLE "Cliente" (
     "id" SERIAL NOT NULL,
     "nombre" TEXT NOT NULL,
     "identificacion" TEXT NOT NULL,
-    "estado" "Estado" NOT NULL DEFAULT 'Activo',
+    "sucursal" "Sucursal" NOT NULL,
 
     CONSTRAINT "Cliente_pkey" PRIMARY KEY ("id")
 );
@@ -15,7 +15,7 @@ CREATE TABLE "Cliente" (
 CREATE TABLE "Concepto" (
     "id" SERIAL NOT NULL,
     "descripcion" TEXT NOT NULL,
-    "estado" "Estado" NOT NULL DEFAULT 'Activo',
+    "sucursal" "Sucursal" NOT NULL,
 
     CONSTRAINT "Concepto_pkey" PRIMARY KEY ("id")
 );
@@ -25,10 +25,10 @@ CREATE TABLE "Gasto" (
     "id" SERIAL NOT NULL,
     "clienteId" INTEGER NOT NULL,
     "conceptoId" INTEGER NOT NULL,
+    "sucursal" "Sucursal" NOT NULL,
     "fecha" TEXT NOT NULL,
     "hora" TEXT NOT NULL,
     "valorGasto" DOUBLE PRECISION NOT NULL,
-    "estado" "Estado" NOT NULL DEFAULT 'Activo',
 
     CONSTRAINT "Gasto_pkey" PRIMARY KEY ("id")
 );
